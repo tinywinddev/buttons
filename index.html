@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔳</text></svg>">
     <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@ryangjchandler/alpine-clipboard@2.x.x/dist/alpine-clipboard.js" defer></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>Button Generators - Tinywind.dev</title>
 </head>
@@ -220,13 +222,19 @@
                 </div>
                 <div id="preview" class="flex flex-col flex-1" class="bg-gray-50">
                     <nav class="bg-gray-100 w-full px-4 py-3 space-x-4 rounded-tl-md rounded-tr-md">
-                        <button
-                            class="bg-gray-200 px-4 py-1 text-sm font-medium text-gray-900 rounded-md focus:outline-none"
-                            x-bind:class="{
-                                'bg-gray-300 ring-2 ring-offset-1 ring-gray-300': tab === 'preview'
-                            }"
-                            x-on:click="tab = 'preview'"
-                        >Preview</button>
+                        <div class="flex items-center justify-between">
+                            <button
+                                class="bg-gray-200 px-4 py-1 text-sm font-medium text-gray-900 rounded-md focus:outline-none"
+                                x-bind:class="{
+                                    'bg-gray-300 ring-2 ring-offset-1 ring-gray-300': tab === 'preview'
+                                }"
+                                x-on:click="tab = 'preview'"
+                            >Preview</button>
+
+                            <button class="text-gray-400 hover:text-gray-700 focus:outline-none focus:text-gray-700" x-on:click="$clipboard(markup)" type="button" title="Copy to clipboard">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path></svg>
+                            </button>
+                        </div>
                     </nav>
                     <div class="border-l border-r border-b border-gray-100 flex-1">
                         <div x-show="tab === 'preview'" class="p-4">
@@ -264,9 +272,6 @@
                     'indigo',
                     'gray',
                 ],
-                textColor: {
-                    
-                },
                 sizeClasses: {
                     'small': 'h-8 px-3 text-sm',
                     'normal': 'h-9 px-4',
@@ -278,9 +283,9 @@
                 },
                 get markup() {
                     const classString = [
-                        'inline-flex items-center justify-center font-medium tracking-tight text-white transition shadow focus:outline-none focus:ring-offset-2 focus:ring-2',
+                        'inline-flex items-center justify-center font-medium tracking-tight transition shadow focus:outline-none focus:ring-offset-2 focus:ring-2',
                         `bg-${this.color}-600 hover:bg-${this.color}-500 focus:bg-${this.color}-700 focus:ring-offset-${this.color}-700`,
-                        this.textColor[this.color] || 'text-gray-100',
+                        'text-gray-100',
                         this.sizeClasses[this.size],
                         this.shapeClasses[this.shape],
                     ];
@@ -289,7 +294,7 @@
                         <${this.tag} class="${classString.join(' ')}">
                             Here is my button!
                         </${this.tag}>
-                    `
+                    `.trim()
                 }
             }))
         })
