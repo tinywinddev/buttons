@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>Button Generators - Tinywind.dev</title>
+</head>
+<body class="flex flex-col h-full min-h-screen p-8 font-sans antialiased text-gray-900 md:p-16 min-w-screen">
+    <div class="absolute top-0 left-0 right-0 bg-yellow-600 border-b-2 border-yellow-800">
+        <div class="p-2 mx-auto md:px-3 md:py-3 max-w-7xl sm:px-6 lg:px-8">
+            <div class="pr-16 sm:text-center sm:px-16">
+                <p class="font-medium text-white">
+                    <span class="block text-sm md:text-base sm:ml-2 sm:inline-block">
+                        Support the on-going development of this project by
+
+                        <a href="https://github.com/sponsors/ryangjchandler" class="font-bold text-white underline" target="_blank"> sponsoring me on GitHub <span aria-hidden="true">→</span></a>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <header class="mt-16 mb-8 space-y-4 md:mb-16 md:mt-8">
+        <a href="/" class="hover:underline focus:underline">
+            <h1 class="text-3xl font-bold">Tinywind Button Generator</h1>
+        </a>
+        
+        <p>Generate Tailwind-styled buttons in a matter of seconds.</p>
+
+        <nav class="items-center hidden space-x-4 md:flex">
+            <a href="https://tinywind.dev" class="text-blue-500 hover:text-blue-800 focus:text-blue-800 hover:underline focus:underline" target="_blank">
+                &larr; Visit Tinywind.dev
+            </a>    
+        </nav>
+    </header>
+
+    <main class="flex-1">
+        <section id="index" class="space-y-8">
+            <div x-data="builder" class="flex items-start space-x-16">
+                <div class="grid grid-cols-2 gap-y-12 gap-x-8">
+                    <fieldset class="space-y-4">
+                        <div class="space-y-2">
+                            <legend class="font-medium text-gray-900">Which tag / element would you like to use?</legend>
+                            <p id="email-help" class="text-sm text-gray-700">Please select one option.</p>
+                        </div>
+                    
+                        <div class="flex items-start space-x-2">
+                            <input
+                                type="radio"
+                                name="tag"
+                                id="tag_button"
+                                class="w-5 h-5 outline-none focus:outline-black focus:shadow-none focus:ring-0"
+                                value="button"
+                                x-model="tag"
+                            >
+                    
+                            <label
+                                for="choice_button"
+                                class="leading-tight font-gray-800"
+                            >
+                                <code class="text-sm inline-block px-2 py-px bg-gray-200 border border-gray-300 rounded">&lt;button&gt;</code>
+                            </label>
+                        </div>
+                    
+                        <div class="flex items-start space-x-2">
+                            <input
+                                type="radio"
+                                name="tag"
+                                id="tag_a"
+                                class="w-5 h-5 outline-none focus:outline-black focus:shadow-none focus:ring-0"
+                                value="a"
+                                x-model="tag"
+                            >
+                    
+                            <label
+                                for="choice_a"
+                                class="leading-tight font-gray-800"
+                            >
+                                <code class="text-sm inline-block px-2 py-px bg-gray-200 border border-gray-300 rounded">&lt;a&gt;</code>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="space-y-4">
+                        <div class="space-y-2">
+                            <legend class="font-medium text-gray-900">Which shape would you like to use?</legend>
+                            <p id="email-help" class="text-sm text-gray-700">Please select one option.</p>
+                        </div>
+                    
+                        <div class="flex items-start space-x-2">
+                            <input
+                                type="radio"
+                                name="shape"
+                                id="shape_square"
+                                class="w-5 h-5 outline-none focus:outline-black focus:shadow-none focus:ring-0"
+                                value="square"
+                                x-model="shape"
+                            >
+                    
+                            <label
+                                for="shape_square"
+                                class="leading-tight font-gray-800"
+                            >
+                                Square
+                            </label>
+                        </div>
+                    
+                        <div class="flex items-start space-x-2">
+                            <input
+                                type="radio"
+                                name="shape"
+                                id="shape_rounded"
+                                class="w-5 h-5 outline-none focus:outline-black focus:shadow-none focus:ring-0"
+                                value="rounded"
+                                x-model="shape"
+                            >
+                    
+                            <label
+                                for="shape_a"
+                                class="leading-tight font-gray-800"
+                            >
+                                Rounded
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="space-y-4">
+                        <div class="space-y-2">
+                            <legend class="font-medium text-gray-900">Which size would you like to use?</legend>
+                            <p id="email-help" class="text-sm text-gray-700">Please select one option.</p>
+                        </div>
+                    
+                        <div class="flex items-start space-x-2">
+                            <input
+                                type="radio"
+                                name="size"
+                                id="size_small"
+                                class="w-5 h-5 outline-none focus:outline-black focus:shadow-none focus:ring-0"
+                                value="small"
+                                x-model="size"
+                            >
+                    
+                            <label
+                                for="size_small"
+                                class="leading-tight font-gray-800"
+                            >
+                                Small
+                            </label>
+                        </div>
+                    
+                        <div class="flex items-start space-x-2">
+                            <input
+                                type="radio"
+                                name="size"
+                                id="size_normal"
+                                class="w-5 h-5 outline-none focus:outline-black focus:shadow-none focus:ring-0"
+                                value="normal"
+                                x-model="size"
+                            >
+                    
+                            <label
+                                for="size_normal"
+                                class="leading-tight font-gray-800"
+                            >
+                                Normal
+                            </label>
+                        </div>
+
+                        <div class="flex items-start space-x-2">
+                            <input
+                                type="radio"
+                                name="size"
+                                id="size_large"
+                                class="w-5 h-5 outline-none focus:outline-black focus:shadow-none focus:ring-0"
+                                value="large"
+                                x-model="size"
+                            >
+                    
+                            <label
+                                for="size_large"
+                                class="leading-tight font-gray-800"
+                            >
+                                Large
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="space-y-4">
+                        <div class="space-y-2">
+                            <legend class="font-medium text-gray-900">Which color would you like the button to be?</legend>
+                            <p id="email-help" class="text-sm text-gray-700">Please select one option.</p>
+                        </div>
+                    
+                        <div class="grid grid-cols-4 gap-8">
+                            <template x-for="colorOption in colors" :key="colorOption">
+                                <div class="flex items-start space-x-2">
+                                    <button
+                                        type="button"
+                                        class="w-6 h-6 rounded-full focus:outline-none"
+                                        x-bind:class="{
+                                            [`bg-${colorOption}-500`]: true,
+                                            [`ring-2 ring-offset-1 ring-${colorOption}-400`]: colorOption === color
+                                        }"
+                                        x-on:click="color = colorOption"
+                                        x-on:keydown.enter="color = colorOption"
+                                    ></button>
+                            
+                                    <label
+                                        for="color_small"
+                                        class="sr-only"
+                                        x-text="colorOption.charAt(0).toUpperCase() + colorOption.slice(1)"
+                                    ></label>
+                                </div>
+                            </template>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="preview" class="flex-1">
+                    <nav class="bg-gray-50 w-full px-4 py-2 space-x-4">
+                        <button class="bg-gray-100 px-2 py-px">Preview</button>
+                        <button>Code</button>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-8 space-x-4 md:mt-16">
+        <a class="text-blue-500 hover:text-blue-800 focus:text-blue-800 hover:underline focus:underline" href="https://github.com/tinywinddev/buttons" target="_blank">
+            GitHub
+        </a>
+        <a class="text-blue-500 hover:text-blue-800 focus:text-blue-800 hover:underline focus:underline" href="https://github.com/sponsors/ryangjchandler" target="_blank">
+            Sponsor development
+        </a>
+    </footer>
+
+    <script>
+        document.addEventListener('alpine:initializing', () => {
+            Alpine.data('builder', () => ({
+                tag: 'a',
+                shape: 'square',
+                size: 'normal',
+                color: 'blue',
+                colors: [
+                    'red',
+                    'blue',
+                    'pink',
+                    'green',
+                    'yellow',
+                    'indigo',
+                    'gray',
+                ],
+                get markup() {
+                    return `
+                    
+                    `
+                }
+            }))
+        })
+    </script>
+</body>
+</html>
