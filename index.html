@@ -39,7 +39,7 @@
 
     <main class="flex-1">
         <section id="index" class="space-y-8">
-            <div x-data="builder" class="flex items-start space-x-16">
+            <div x-data="builder" class="flex space-x-16">
                 <div class="grid grid-cols-2 gap-y-12 gap-x-8">
                     <fieldset class="space-y-4">
                         <div class="space-y-2">
@@ -218,11 +218,21 @@
                         </div>
                     </fieldset>
                 </div>
-                <div id="preview" class="flex-1">
-                    <nav class="bg-gray-50 w-full px-4 py-2 space-x-4">
-                        <button class="bg-gray-100 px-2 py-px">Preview</button>
-                        <button>Code</button>
+                <div id="preview" class="flex flex-col flex-1" class="bg-gray-50">
+                    <nav class="bg-gray-100 w-full px-4 py-3 space-x-4 rounded-tl-md rounded-tr-md">
+                        <button
+                            class="bg-gray-200 px-4 py-1 text-sm font-medium text-gray-900 rounded-md focus:outline-none"
+                            x-bind:class="{
+                                'bg-gray-300 ring-2 ring-offset-1 ring-gray-300': tab === 'preview'
+                            }"
+                            x-on:click="tab = 'preview'"
+                        >Preview</button>
                     </nav>
+                    <div class="border-l border-r border-b border-gray-100 flex-1">
+                        <div x-show="tab === 'preview'" class="p-4">
+                            <div x-html="markup" x-ref="previewContainer"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -240,6 +250,7 @@
     <script>
         document.addEventListener('alpine:initializing', () => {
             Alpine.data('builder', () => ({
+                tab: 'preview',
                 tag: 'a',
                 shape: 'square',
                 size: 'normal',
@@ -253,9 +264,31 @@
                     'indigo',
                     'gray',
                 ],
-                get markup() {
-                    return `
+                textColor: {
                     
+                },
+                sizeClasses: {
+                    'small': 'h-8 px-3 text-sm',
+                    'normal': 'h-9 px-4',
+                    'large': 'h-11 px-6',
+                },
+                shapeClasses: {
+                    'square': '',
+                    'rounded': 'rounded',
+                },
+                get markup() {
+                    const classString = [
+                        'inline-flex items-center justify-center font-medium tracking-tight text-white transition shadow focus:outline-none focus:ring-offset-2 focus:ring-2',
+                        `bg-${this.color}-600 hover:bg-${this.color}-500 focus:bg-${this.color}-700 focus:ring-offset-${this.color}-700`,
+                        this.textColor[this.color] || 'text-gray-100',
+                        this.sizeClasses[this.size],
+                        this.shapeClasses[this.shape],
+                    ];
+
+                    return `
+                        <${this.tag} class="${classString.join(' ')}">
+                            Here is my button!
+                        </${this.tag}>
                     `
                 }
             }))
